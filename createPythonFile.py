@@ -11,10 +11,9 @@ import subprocess
 today = date.today()
 
 def main():
-    d2 = getDate()
     name, fileName, description = getInput()
-    programFile, nameOfFile = createPythonFile(fileName, name, description, createSavePath())
-    writeInitComment(name, programFile, nameOfFile, d2, description)
+    programFile, nameOfFile = createPythonFile(fileName, createSavePath())
+    writeInitComment(name, programFile, nameOfFile, getDate(), description)
 
 def getDate():
     # Textual month, day and year	
@@ -37,17 +36,15 @@ def createSavePath():
         savePath  = r"C:\Users\X" + "\\" + savePath
     else:
         savePath = savePath + '\\'
-    print("savePath in createSavePath function:",savePath)
     return savePath
 
-def createPythonFile(fileName, name, description, savePath):
+def createPythonFile(fileName, savePath):
     print("This is savePath:", savePath)
     if ".py" not in fileName:
         nameOfFile = fileName + ".py"
     else:
         nameOfFile = fileName
     programFile = open(savePath + nameOfFile, "w")
-    print("savePath + nameOfFile:", savePath + nameOfFile)
     return programFile, nameOfFile
 
 def writeInitComment(name, file, nameOfFile, date, description):
@@ -56,8 +53,11 @@ def writeInitComment(name, file, nameOfFile, date, description):
     file.write("Filename: " + nameOfFile + '\n')
     file.write("Date: " + str(date) + '\n')
     file.write("Description: " + description + '\n')
-    file.write('"""' + '\n')
+    file.write('"""' + '\n\n')
+
     file.close()
+
+    print("File '" + nameOfFile +"' successfully created a)
 
 main()
 
