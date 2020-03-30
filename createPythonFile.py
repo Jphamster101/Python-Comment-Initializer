@@ -39,7 +39,6 @@ def createSavePath():
     return savePath
 
 def createPythonFile(fileName, savePath):
-    print("This is savePath:", savePath)
     if ".py" not in fileName:
         nameOfFile = fileName + ".py"
     else:
@@ -57,7 +56,7 @@ def writeInitComment(name, file, nameOfFile, date, description):
 
     file.close()
 
-    print("File '" + nameOfFile +"' successfully created a)
+    print("File '" + nameOfFile + "' was successfully created!")
 
 main()
 
