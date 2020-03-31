@@ -7,13 +7,15 @@ Description: File to assist in creating python files with comments
 
 from datetime import date
 import subprocess
+import getpass
 
 today = date.today()
 
 def main():
     name, fileName, description = getInput()
-    programFile, nameOfFile = createPythonFile(fileName, createSavePath())
-    writeInitComment(name, programFile, nameOfFile, getDate(), description)
+    savePath = createSavePath()
+    programFile, nameOfFile = createPythonFile(fileName, savePath)
+    writeInitComment(name, programFile, nameOfFile, getDate(), description, savePath)
 
 def getDate():
     # Textual month, day and year	
@@ -33,7 +35,8 @@ def createSavePath():
 
     savePath = input("Enter the path where the file will be saved: ")
     if "Users" not in savePath:
-        savePath  = r"C:\Users\X" + "\\" + savePath
+        user = getpass.getuser()
+        savePath  = r"C:\Users" + "\\" + user + "\\" + savePath + '\\'
     else:
         savePath = savePath + '\\'
     return savePath
@@ -43,10 +46,12 @@ def createPythonFile(fileName, savePath):
         nameOfFile = fileName + ".py"
     else:
         nameOfFile = fileName
+
+    print("savePath + nameOfFile:", savePath + nameOfFile)
     programFile = open(savePath + nameOfFile, "w")
     return programFile, nameOfFile
 
-def writeInitComment(name, file, nameOfFile, date, description):
+def writeInitComment(name, file, nameOfFile, date, description, savePath):
     file.write('"""' + '\n')
     file.write("Name:" + name + '\n')
     file.write("Filename: " + nameOfFile + '\n')
@@ -56,7 +61,7 @@ def writeInitComment(name, file, nameOfFile, date, description):
 
     file.close()
 
-    print("File '" + nameOfFile + "' was successfully created!")
+    print("File '" + nameOfFile + "' was successfully created at " + str(savePath))
 
 main()
 
