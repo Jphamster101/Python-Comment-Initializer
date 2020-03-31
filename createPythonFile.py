@@ -46,8 +46,6 @@ def createPythonFile(fileName, savePath):
         nameOfFile = fileName + ".py"
     else:
         nameOfFile = fileName
-
-    print("savePath + nameOfFile:", savePath + nameOfFile)
     programFile = open(savePath + nameOfFile, "w")
     return programFile, nameOfFile
 
